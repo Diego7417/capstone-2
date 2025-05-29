@@ -8,14 +8,20 @@ public class Sandwich extends Product{
     private Bread bread;
     private List<Topping> toppings = new ArrayList<>();
     private boolean toasted;
+    private String meat;
+    private boolean hasCheese;
+    private String condiment;
 
-    public Sandwich(Size size, Bread bread) {
+
+    public Sandwich(Size size, Bread bread, List<Topping> toppings, boolean toasted) {
         this.size = size;
         this.bread = bread;
+        this.toppings = toppings;
+        this.toasted = toasted;
     }
 
-    public Sandwich(String bread, String meat, List<String> toppings, boolean toasted, boolean hasCheese, String condiment) {
-        super();
+    public Size getSize(){
+        return size;
     }
 
     public void addTopping(Topping topping){
@@ -37,6 +43,8 @@ public class Sandwich extends Product{
         setDisplayName(size + "″ " + bread + " Sandwich" + (toasted ? " (toasted)" : ""));
         return price;
     }
+
+
 
     @Override
     public String toString() {

@@ -1,12 +1,42 @@
 package com.MySandwichShop.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Topping {
+    Scanner scanner = new Scanner(System.in);
     private String name;
     private ToppingType type;
+    private boolean extraMeat;
+    private boolean extraCheese;
+    private List<String> extraToppings = new ArrayList<>();
 
     public Topping(String name, ToppingType type) {
         this.name = name;
         this.type = type;
+    }
+
+    public Topping(Topping toppingName, ToppingType toppingType) {
+    }
+
+   public Sandwich toppings() {
+       System.out.println("Add toppings (type 'done' to finish):");
+       while (true) {
+           System.out.print("Topping: ");
+           String topping = scanner.nextLine().trim();
+           if (topping.equalsIgnoreCase("done")) {
+               addTopping(topping);
+
+               System.out.print("Add extra " + topping + "? (yes/no): ");
+               if (scanner.nextLine().trim().equalsIgnoreCase("yes")) {
+                   this.extraToppings.add(topping);
+               }
+           }
+       }
+   }
+
+    private void addTopping(String topping) {
     }
 
     double getPrice(Size size){

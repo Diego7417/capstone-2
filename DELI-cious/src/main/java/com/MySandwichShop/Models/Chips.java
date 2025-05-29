@@ -5,9 +5,4 @@ public class Chips extends Product{
         setDisplayName(type + "Chips");
         setPrice(1.50);
     }
-
-    @Override
-    public int getName() {
-        return 0;
-    }
 }

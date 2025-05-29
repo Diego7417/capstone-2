@@ -11,7 +11,7 @@ public class Order {
     }
 
     public void clearItems() {
-        items.add((MenuItem) items);
+        items.clear();
     }
 
     public List<MenuItem> getItems() {
@@ -19,12 +19,26 @@ public class Order {
     }
 
     public double getTotalPrice() {
-        return 0;
+        double total = 0;
+        for (MenuItem item : items){
+            total += item.getPrice();
+        }
+        return total;
     }
 
     public void printOrderDetails() {
+        System.out.println("\n--- Order Details ---");
+        for (MenuItem item : items){
+            System.out.println("-" + item.getDisplayName() + ": $" + String.format("%.2f", item.getPrice()));
+        }
+        System.out.println("Total: $" + String.format("%.2f", getTotalPrice()));
     }
 
     public Object getTotal() {
+        double total = 0;
+        for (MenuItem item : items) {
+            total += item.getPrice();
+        }
+        return total;
     }
 }

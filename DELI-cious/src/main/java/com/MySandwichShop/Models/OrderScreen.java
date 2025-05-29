@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class OrderScreen{
 
     private Order order = new Order();
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void display() {
         boolean ordering = true;
@@ -23,7 +23,7 @@ public class OrderScreen{
             switch (input){
                 case "1":
                     SandwichBuilder sandwichBuilder = new SandwichBuilder();
-                    Sandwich sandwich =sandwichBuilder.toppings(scanner);
+                    Sandwich sandwich =sandwichBuilder.buildFromInput(scanner);
                     order.addItem(sandwich);
                     break;
                 case "2":
@@ -63,7 +63,7 @@ public class OrderScreen{
                 price = 2.50;
             }
         }
-        Drink drink = new Drink(displayName, price);
+        Drink drink = new Drink(displayName);
         order.addItem(drink);
 
     }

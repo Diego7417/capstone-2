@@ -4,5 +4,4 @@ public interface MenuItem {
     String getDisplayName();
     double getPrice();
 
-    int getName();
 }

@@ -1,4 +1,15 @@
 package com.MySandwichShop.Models;
 
-public class Bread {
+public enum Bread {
+    WHITE, WHEAT, RYE, WRAP;
+
+    public static Bread fromString(String input) {
+        return switch (input.toLowerCase()) {
+            case "white" -> WHITE;
+            case "wheat" -> WHEAT;
+            case "rye" -> RYE;
+            case "wrap" -> WRAP;
+            default -> WHITE;
+        };
+    }
 }
