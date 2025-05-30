@@ -17,6 +17,8 @@ public class SandwichBuilder {
     private boolean hasCheese;
     private boolean extraCheese;
     private String condiment;
+    private List<String> toppingObjects;
+    private String cheeseType;
 
     public SandwichBuilder setSize(Size size) {
         this.size = size;
@@ -99,7 +101,7 @@ public class SandwichBuilder {
             case "8" -> this.size = Size.EIGHT;
             case "12" -> this.size = Size.TWELVE;
             default -> {
-                System.out.println("Invalid input. Defaulting to 8 inch.");
+                System.out.println("Invalid option. Defaulting to 8 inch.");
                 this.size = Size.EIGHT;
             }
         }
@@ -117,21 +119,41 @@ public class SandwichBuilder {
         System.out.print("Add extra meat? (yes/no): ");
         this.extraMeat = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
-
-        System.out.println("Toasted (yes/no)");
-        setToasted(this.scanner.nextLine().trim().equalsIgnoreCase("yes"));
-
         System.out.print("Add cheese? (yes/no): ");
         setHasCheese(this.scanner.nextLine().trim().equalsIgnoreCase("yes"));
+
+        if (hasCheese) {
+            System.out.print("Choose cheese (American/Swiss/Cheddar/Provolone): ");
+            cheeseType = scanner.nextLine().trim();
+            if (cheeseType.isEmpty()) cheeseType = "American";
+        }
 
 
         System.out.print("Add extra cheese? (yes/no): ");
         this.extraCheese = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
+        System.out.println("Toasted (yes/no)");
+        setToasted(this.scanner.nextLine().trim().equalsIgnoreCase("yes"));
+
+
         System.out.print("Choose condiment (Mayo/Mustard/Ranch/Thousand Islands/Vinaigrette/Au jus/None): ");
         String condimentInput = this.scanner.nextLine().trim();
         if (condimentInput.isEmpty()) condimentInput = "None";
         setCondiment(condimentInput);
+
+        System.out.println("Add toppings (type 'done' to finish):");
+        while (true) {
+            System.out.print("Topping: ");
+            String topping = scanner.nextLine().trim();
+            if (topping.equalsIgnoreCase("done")) break;
+            if (!topping.isEmpty()) addTopping(topping);
+
+            System.out.print("Add extra of this topping? (yes/no): ");
+            String extra = scanner.nextLine().trim();
+            if (extra.equalsIgnoreCase("yes")) {
+                extraToppings.add(topping);
+            }
+        }
 
         System.out.println("Sandwich built successfully!");
         return build();
@@ -146,6 +168,14 @@ public class SandwichBuilder {
             String topping = this.scanner.nextLine().trim();
             if (topping.equalsIgnoreCase("done")) break;
             if (!topping.isEmpty()) addTopping(topping);
+        }
+
+        if (hasCheese) {
+            toppingObjects.add(String.valueOf(new Topping(cheeseType, ToppingType.Cheese)));
+
+            if (extraCheese) {
+                toppingObjects.add(String.valueOf(new Topping("Extra " + cheeseType, ToppingType.Cheese)));
+            }
         }
         return build();
     }
